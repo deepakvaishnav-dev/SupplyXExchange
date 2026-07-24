@@ -202,16 +202,16 @@ export default function Landing() {
     <div style={{ backgroundColor: "#ffffff", minHeight: "100vh", display: "flex", flexDirection: "column" }}>
       
       {/* ── Top Live B2B Market Ticker ── */}
-      <div style={{ backgroundColor: '#0B0F19', color: 'var(--slate-300)', fontSize: '0.8125rem', padding: '10px 24px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+      <div className="ticker-wrap">
         <div style={{ maxWidth: '1360px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div className="pulse-dot" />
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+            <div className="pulse-dot" style={{ flexShrink: 0 }} />
             <span style={{ fontWeight: 700, color: '#ffffff' }}>LIVE MARKET:</span>
             <span style={{ color: 'var(--slate-300)' }}>
               Tirupur Mill #TC-001 accepted 500 Pcs Oversized Tees Order • Bangalore Brand posted 1,200 Pcs Pique Polos RFQ
             </span>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '20px', fontSize: '0.8rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px', fontSize: '0.8rem', flexWrap: 'wrap' }}>
             <span style={{ color: 'var(--green-500)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px' }}>
               <CheckCircle2 size={14} /> 500+ Verified Factories Online
             </span>
@@ -225,15 +225,7 @@ export default function Landing() {
       <Navbar activePage="how" />
 
       {/* ── Hero Section (Dark & Ambient Orange Glow Theme) ── */}
-      <section
-        style={{
-          background: "linear-gradient(180deg, #101828 0%, #1D2939 100%)",
-          color: "#ffffff",
-          padding: "64px 32px 90px 32px",
-          position: "relative",
-          overflow: "hidden",
-        }}
-      >
+      <section className="landing-hero-section">
         {/* Subtle Ambient Glow Effect */}
         <div
           style={{
@@ -249,7 +241,7 @@ export default function Landing() {
         />
 
         <div style={{ maxWidth: "1360px", margin: "0 auto", position: "relative", zIndex: 1 }}>
-          <div className="responsive-grid-2col" style={{ alignItems: "center", gap: "56px" }}>
+          <div className="responsive-grid-2col" style={{ alignItems: "center", gap: "40px" }}>
             
             {/* Left Hero Content */}
             <div>
@@ -259,7 +251,7 @@ export default function Landing() {
                   backgroundColor: "rgba(255, 84, 0, 0.15)",
                   color: "var(--orange-500)",
                   border: "1px solid rgba(255, 84, 0, 0.3)",
-                  marginBottom: "24px",
+                  marginBottom: "20px",
                   padding: "6px 16px",
                   fontSize: "0.8125rem",
                   display: "inline-flex",
@@ -271,51 +263,21 @@ export default function Landing() {
                 <Shirt size={14} /> INDIA'S #1 B2B APPAREL SOURCING PLATFORM
               </div>
 
-              <h1
-                style={{
-                  fontSize: "3.5rem",
-                  fontWeight: "800",
-                  lineHeight: "1.1",
-                  color: "#ffffff",
-                  letterSpacing: "-0.03em",
-                  marginBottom: "24px",
-                }}
-              >
+              <h1 className="landing-hero-title">
                 Find Trusted Manufacturers. <br />
                 <span className="text-gradient-orange">Build Your Brand.</span>
               </h1>
 
-              <p
-                style={{
-                  fontSize: "1.15rem",
-                  color: "var(--slate-300)",
-                  marginBottom: "36px",
-                  maxWidth: "580px",
-                  lineHeight: 1.65,
-                }}
-              >
+              <p className="landing-hero-sub">
                 SupplyX Exchange connects D2C apparel brands with 500+ audited textile mills across India. Transparent RFQs, 100% Escrow milestone security, and AQL 2.5 pre-shipment quality inspection.
               </p>
 
               {/* Live Search Bar */}
-              <form
-                onSubmit={handleSearchSubmit}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  backgroundColor: "rgba(255, 255, 255, 0.08)",
-                  backdropFilter: "blur(12px)",
-                  border: "1px solid rgba(255, 255, 255, 0.15)",
-                  borderRadius: "16px",
-                  padding: "6px 8px 6px 20px",
-                  marginBottom: "24px",
-                  boxShadow: "0 20px 40px rgba(0,0,0,0.3)",
-                  maxWidth: "600px",
-                }}
-              >
+              <form onSubmit={handleSearchSubmit} className="landing-search-form">
                 <Search size={22} color="var(--orange-500)" style={{ flexShrink: 0, marginRight: "12px" }} />
                 <input
                   type="text"
+                  className="landing-search-input"
                   placeholder="Search by apparel, fabric GSM, or cluster (e.g. 240 GSM Hoodies, Tirupur)..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
@@ -328,13 +290,13 @@ export default function Landing() {
                     color: "#ffffff",
                   }}
                 />
-                <button type="submit" className="btn btn-orange glow-orange-sm" style={{ borderRadius: "12px", padding: "12px 24px" }}>
+                <button type="submit" className="btn btn-orange glow-orange-sm landing-search-btn" style={{ borderRadius: "12px", padding: "12px 24px" }}>
                   Search Mills
                 </button>
               </form>
 
               {/* Popular Search Tag Pills */}
-              <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap", marginBottom: "40px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap", marginBottom: "32px" }}>
                 <span style={{ fontSize: '0.8rem', color: 'var(--slate-400)', fontWeight: 600 }}>Popular:</span>
                 {["Oversized T-Shirts", "240 GSM French Terry", "Pique Polos", "Tirupur Knitwear", "Fleece Hoodies"].map((tag, i) => (
                   <span
@@ -361,24 +323,24 @@ export default function Landing() {
                 style={{
                   display: "flex",
                   alignItems: "center",
-                  gap: "32px",
+                  gap: "24px",
                   borderTop: "1px solid rgba(255,255,255,0.1)",
                   paddingTop: "24px",
                   flexWrap: "wrap",
                 }}
               >
                 <div>
-                  <div style={{ fontSize: "1.5rem", fontWeight: 800, color: "#ffffff" }}>500+</div>
+                  <div style={{ fontSize: "1.4rem", fontWeight: 800, color: "#ffffff" }}>500+</div>
                   <div style={{ fontSize: "0.8rem", color: "var(--slate-400)" }}>Audited Factories</div>
                 </div>
                 <div style={{ width: "1px", height: "30px", backgroundColor: "rgba(255,255,255,0.1)" }} />
                 <div>
-                  <div style={{ fontSize: "1.5rem", fontWeight: 800, color: "#ffffff" }}>10M+</div>
+                  <div style={{ fontSize: "1.4rem", fontWeight: 800, color: "#ffffff" }}>10M+</div>
                   <div style={{ fontSize: "0.8rem", color: "var(--slate-400)" }}>Garments Produced</div>
                 </div>
                 <div style={{ width: "1px", height: "30px", backgroundColor: "rgba(255,255,255,0.1)" }} />
                 <div>
-                  <div style={{ fontSize: "1.5rem", fontWeight: 800, color: "var(--orange-500)" }}>100% Escrow</div>
+                  <div style={{ fontSize: "1.4rem", fontWeight: 800, color: "var(--orange-500)" }}>100% Escrow</div>
                   <div style={{ fontSize: "0.8rem", color: "var(--slate-400)" }}>Milestone Guaranteed</div>
                 </div>
               </div>
@@ -386,13 +348,13 @@ export default function Landing() {
             </div>
 
             {/* Right Hero RFQ Cost & Lead-Time Estimator Card */}
-            <div className="glass-dark glow-orange" style={{ borderRadius: "24px", padding: "36px", position: "relative" }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px' }}>
+            <div className="landing-estimator-card glow-orange">
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px', flexWrap: 'wrap', gap: '8px' }}>
                 <div>
                   <span className="badge badge-orange" style={{ fontSize: '0.72rem', padding: '4px 10px' }}>INSTANT RFQ ESTIMATOR</span>
                   <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#ffffff', marginTop: '6px' }}>Calculate Production Quote</h3>
                 </div>
-                <div style={{ width: '44px', height: '44px', borderRadius: '12px', backgroundColor: 'rgba(255,84,0,0.15)', color: 'var(--orange-500)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ width: '44px', height: '44px', borderRadius: '12px', backgroundColor: 'rgba(255,84,0,0.15)', color: 'var(--orange-500)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                   <Zap size={22} />
                 </div>
               </div>
@@ -422,7 +384,7 @@ export default function Landing() {
                   </select>
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
+                <div className="estimator-grid-2">
                   <div>
                     <label style={{ display: 'block', fontSize: '0.84rem', fontWeight: 600, color: 'var(--slate-300)', marginBottom: '6px' }}>Quantity (Pcs)</label>
                     <input
@@ -469,15 +431,15 @@ export default function Landing() {
 
                 {/* Calculation Result Box */}
                 <div style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)', borderRadius: '14px', padding: '16px 20px', border: '1px solid rgba(255, 255, 255, 0.1)', marginTop: '4px' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px', flexWrap: 'wrap', gap: '4px' }}>
                     <span style={{ fontSize: '0.84rem', color: 'var(--slate-300)' }}>Estimated Unit Price:</span>
                     <strong style={{ fontSize: '1.15rem', color: 'var(--orange-500)' }}>₹{priceEstimate.minPrice} - ₹{priceEstimate.maxPrice} / pc</strong>
                   </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.82rem', color: 'var(--slate-400)' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.82rem', color: 'var(--slate-400)', flexWrap: 'wrap', gap: '4px' }}>
                     <span>Estimated Total Budget:</span>
                     <span>₹{priceEstimate.totalMin} - ₹{priceEstimate.totalMax}</span>
                   </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.82rem', color: 'var(--green-500)', marginTop: '6px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.82rem', color: 'var(--green-500)', marginTop: '6px', flexWrap: 'wrap', gap: '4px' }}>
                     <span>Sample Turnaround:</span>
                     <span>3 - 5 Days • 4 to 8 Factory Bids</span>
                   </div>
@@ -502,7 +464,7 @@ export default function Landing() {
       </section>
 
       {/* ── Trust & Audit Gateway Strip ── */}
-      <section style={{ backgroundColor: 'var(--slate-900)', borderBottom: '1px solid var(--slate-800)', padding: '36px 32px' }}>
+      <section className="landing-section-padding" style={{ backgroundColor: 'var(--slate-900)', borderBottom: '1px solid var(--slate-800)' }}>
         <div style={{ maxWidth: '1360px', margin: '0 auto' }} className="responsive-grid-4col">
           {[
             { title: '35-Point Factory Audit', desc: 'On-site machinery verification & GST credentials check.', icon: Building2 },
@@ -527,12 +489,12 @@ export default function Landing() {
       </section>
 
       {/* ── Strategic Manufacturing Clusters Hub Section ── */}
-      <section style={{ backgroundColor: "#FAFAFA", padding: "80px 32px", borderBottom: "1px solid var(--slate-200)" }}>
+      <section className="landing-section-padding" style={{ backgroundColor: "#FAFAFA", borderBottom: "1px solid var(--slate-200)" }}>
         <div style={{ maxWidth: "1360px", margin: "0 auto" }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '40px', flexWrap: 'wrap', gap: '16px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '32px', flexWrap: 'wrap', gap: '16px' }}>
             <div>
               <span style={{ fontSize: '0.875rem', fontWeight: 700, color: 'var(--orange-500)', letterSpacing: '0.05em', textTransform: 'uppercase' }}>PAN-INDIA SOURCING NETWORK</span>
-              <h2 style={{ fontSize: '2.25rem', fontWeight: 800, color: 'var(--slate-900)', marginTop: '6px' }}>
+              <h2 className="landing-section-title" style={{ color: 'var(--slate-900)', marginTop: '6px' }}>
                 Strategic Garment Manufacturing Clusters
               </h2>
               <p style={{ color: 'var(--slate-600)', fontSize: '1rem', marginTop: '6px' }}>
@@ -555,19 +517,19 @@ export default function Landing() {
                   backgroundColor: '#ffffff',
                   border: '1px solid var(--slate-200)',
                   borderRadius: '16px',
-                  padding: '24px',
+                  padding: '20px',
                   boxShadow: 'var(--shadow-sm)',
                   cursor: 'pointer',
                 }}
               >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--orange-500)', marginBottom: '10px', fontSize: '0.8rem', fontWeight: 700 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--orange-500)', marginBottom: '8px', fontSize: '0.8rem', fontWeight: 700 }}>
                   <MapPin size={14} /> {c.state}
                 </div>
-                <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--slate-900)', marginBottom: '8px' }}>{c.city}</h3>
+                <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--slate-900)', marginBottom: '8px' }}>{c.city}</h3>
                 <div style={{ fontSize: '0.85rem', color: 'var(--slate-600)', marginBottom: '16px', lineHeight: 1.5 }}>
                   <strong>Specialty:</strong> {c.specialty}
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid var(--slate-100)', paddingTop: '12px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid var(--slate-100)', paddingTop: '12px', flexWrap: 'wrap', gap: '6px' }}>
                   <span className="badge badge-gray" style={{ fontSize: '0.75rem' }}>{c.factories}</span>
                   <span style={{ fontSize: '0.75rem', color: 'var(--green-600)', fontWeight: 600 }}>⚡ {c.leadTime}</span>
                 </div>
@@ -578,20 +540,20 @@ export default function Landing() {
       </section>
 
       {/* ── Featured Verified Manufacturers Showcase ── */}
-      <section style={{ padding: "80px 32px", maxWidth: "1360px", margin: "0 auto", width: "100%" }}>
+      <section className="landing-section-padding" style={{ maxWidth: "1360px", margin: "0 auto", width: "100%" }}>
         <div
           style={{
             display: "flex",
             justify: "space-between",
             alignItems: "flex-end",
-            marginBottom: "40px",
+            marginBottom: "32px",
             flexWrap: "wrap",
             gap: "16px",
           }}
         >
           <div>
             <span style={{ fontSize: '0.875rem', fontWeight: 700, color: 'var(--orange-500)', letterSpacing: '0.05em', textTransform: 'uppercase' }}>AUDITED MILLS</span>
-            <h2 style={{ fontSize: "2.25rem", fontWeight: "800", color: "var(--slate-900)", marginTop: '6px' }}>
+            <h2 className="landing-section-title" style={{ color: "var(--slate-900)", marginTop: '6px' }}>
               Top Verified Apparel Manufacturers
             </h2>
             <p style={{ color: "var(--slate-600)", fontSize: "1rem", marginTop: "6px" }}>
@@ -688,11 +650,11 @@ export default function Landing() {
       </section>
 
       {/* ── Garment Sourcing Categories ── */}
-      <section style={{ backgroundColor: "var(--slate-900)", color: "#ffffff", padding: "80px 32px" }}>
+      <section className="landing-section-padding" style={{ backgroundColor: "var(--slate-900)", color: "#ffffff" }}>
         <div style={{ maxWidth: "1360px", margin: "0 auto" }}>
-          <div style={{ textAlign: "center", maxWidth: "700px", margin: "0 auto 48px" }}>
+          <div style={{ textAlign: "center", maxWidth: "700px", margin: "0 auto 40px" }}>
             <span style={{ fontSize: '0.875rem', fontWeight: 700, color: 'var(--orange-500)', letterSpacing: '0.05em', textTransform: 'uppercase' }}>PRODUCT CATALOG</span>
-            <h2 style={{ fontSize: "2.25rem", fontWeight: "800", marginTop: '6px' }}>
+            <h2 className="landing-section-title" style={{ marginTop: '6px' }}>
               Garment Categories &amp; Fabric Capabilities
             </h2>
             <p style={{ color: "var(--slate-400)", fontSize: "1rem", marginTop: "8px" }}>
@@ -722,7 +684,7 @@ export default function Landing() {
                     {cat.count}
                   </span>
                 </div>
-                <div style={{ padding: "24px" }}>
+                <div style={{ padding: "20px" }}>
                   <h3 style={{ fontSize: "1.2rem", fontWeight: "700", color: "#ffffff", marginBottom: "6px" }}>{cat.name}</h3>
                   <p style={{ fontSize: "0.875rem", color: "var(--slate-400)", lineHeight: 1.5, marginBottom: "16px" }}>{cat.desc}</p>
                   <span style={{ fontSize: "0.84rem", fontWeight: "600", color: "var(--orange-500)", display: "flex", alignItems: "center", gap: "6px" }}>
@@ -736,27 +698,27 @@ export default function Landing() {
       </section>
 
       {/* ── Dual Interactive How It Works Section ── */}
-      <section style={{ padding: "80px 32px", maxWidth: "1360px", margin: "0 auto", width: "100%" }}>
+      <section className="landing-section-padding" style={{ maxWidth: "1360px", margin: "0 auto", width: "100%" }}>
         <div style={{ textAlign: "center", maxWidth: "700px", margin: "0 auto 36px" }}>
           <span style={{ fontSize: '0.875rem', fontWeight: 700, color: 'var(--orange-500)', letterSpacing: '0.05em', textTransform: 'uppercase' }}>STREAMLINED WORKFLOW</span>
-          <h2 style={{ fontSize: "2.25rem", fontWeight: "800", color: "var(--slate-900)", marginTop: '6px' }}>
+          <h2 className="landing-section-title" style={{ color: "var(--slate-900)", marginTop: '6px' }}>
             How SupplyX Exchange Works
           </h2>
           <p style={{ color: "var(--slate-600)", fontSize: "1rem", marginTop: "8px" }}>
             A digitized, transparent B2B workflow designed for fashion brands and audited garment mills.
           </p>
 
-          {/* Tab Switcher */}
-          <div style={{ display: 'inline-flex', backgroundColor: 'var(--slate-100)', padding: '6px', borderRadius: '12px', marginTop: '24px' }}>
+          {/* Responsive Tab Switcher */}
+          <div className="workflow-tabs-wrap">
             <button
-              className={`btn ${activeWorkflowTab === 'buyer' ? 'btn-black' : 'btn-ghost'}`}
+              className={`btn workflow-tab-btn ${activeWorkflowTab === 'buyer' ? 'btn-black' : 'btn-ghost'}`}
               onClick={() => setActiveWorkflowTab('buyer')}
               style={{ borderRadius: '8px', fontSize: '0.9rem', padding: '10px 24px' }}
             >
               For Fashion Brands &amp; Buyers
             </button>
             <button
-              className={`btn ${activeWorkflowTab === 'manufacturer' ? 'btn-black' : 'btn-ghost'}`}
+              className={`btn workflow-tab-btn ${activeWorkflowTab === 'manufacturer' ? 'btn-black' : 'btn-ghost'}`}
               onClick={() => setActiveWorkflowTab('manufacturer')}
               style={{ borderRadius: '8px', fontSize: '0.9rem', padding: '10px 24px' }}
             >
@@ -775,7 +737,7 @@ export default function Landing() {
             ].map((s, i) => {
               const IconComponent = s.icon;
               return (
-                <div key={i} className="card-hover-lift" style={{ backgroundColor: '#ffffff', border: '1px solid var(--slate-200)', borderRadius: '16px', padding: '28px', position: 'relative', boxShadow: 'var(--shadow-sm)' }}>
+                <div key={i} className="card-hover-lift" style={{ backgroundColor: '#ffffff', border: '1px solid var(--slate-200)', borderRadius: '16px', padding: '24px', position: 'relative', boxShadow: 'var(--shadow-sm)' }}>
                   <span style={{ position: 'absolute', top: '16px', right: '20px', fontSize: '2rem', fontWeight: 900, color: 'var(--slate-200)' }}>{s.step}</span>
                   <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: 'var(--orange-50)', color: 'var(--orange-500)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px' }}>
                     <IconComponent size={24} />
@@ -796,7 +758,7 @@ export default function Landing() {
             ].map((s, i) => {
               const IconComponent = s.icon;
               return (
-                <div key={i} className="card-hover-lift" style={{ backgroundColor: '#ffffff', border: '1px solid var(--slate-200)', borderRadius: '16px', padding: '28px', position: 'relative', boxShadow: 'var(--shadow-sm)' }}>
+                <div key={i} className="card-hover-lift" style={{ backgroundColor: '#ffffff', border: '1px solid var(--slate-200)', borderRadius: '16px', padding: '24px', position: 'relative', boxShadow: 'var(--shadow-sm)' }}>
                   <span style={{ position: 'absolute', top: '16px', right: '20px', fontSize: '2rem', fontWeight: 900, color: 'var(--slate-200)' }}>{s.step}</span>
                   <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: 'var(--slate-100)', color: 'var(--slate-900)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px' }}>
                     <IconComponent size={24} />
@@ -811,21 +773,21 @@ export default function Landing() {
       </section>
 
       {/* ── Escrow Security Comparison Box ── */}
-      <section style={{ backgroundColor: 'var(--slate-50)', padding: '80px 32px', borderTop: '1px solid var(--slate-200)', borderBottom: '1px solid var(--slate-200)' }}>
+      <section className="landing-section-padding" style={{ backgroundColor: 'var(--slate-50)', borderTop: '1px solid var(--slate-200)', borderBottom: '1px solid var(--slate-200)' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', maxWidth: '700px', margin: '0 auto 48px' }}>
+          <div style={{ textAlign: 'center', maxWidth: '700px', margin: '0 auto 40px' }}>
             <span style={{ fontSize: '0.875rem', fontWeight: 700, color: 'var(--orange-500)', letterSpacing: '0.05em', textTransform: 'uppercase' }}>FINANCIAL PROTECTION</span>
-            <h2 style={{ fontSize: '2.25rem', fontWeight: 800, color: 'var(--slate-900)', marginTop: '6px' }}>
+            <h2 className="landing-section-title" style={{ color: 'var(--slate-900)', marginTop: '6px' }}>
               Why Escrow is Essential for B2B Sourcing
             </h2>
           </div>
 
-          <div className="responsive-grid-2col" style={{ gap: '32px' }}>
-            <div style={{ backgroundColor: '#FFF5F5', border: '1px solid #FEB2B2', borderRadius: '20px', padding: '36px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#C53030', marginBottom: '20px', fontWeight: 800, fontSize: '1.25rem' }}>
-                <AlertTriangle size={24} /> Traditional Direct Wire Transfer (High Risk)
+          <div className="responsive-grid-2col" style={{ gap: '24px' }}>
+            <div className="escrow-card-box" style={{ backgroundColor: '#FFF5F5', border: '1px solid #FEB2B2' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#C53030', marginBottom: '20px', fontWeight: 800, fontSize: '1.2rem' }}>
+                <AlertTriangle size={24} style={{ flexShrink: 0 }} /> Traditional Direct Wire Transfer (High Risk)
               </div>
-              <ul style={{ display: 'flex', flexDirection: 'column', gap: '14px', fontSize: '0.95rem', color: '#742A2A', paddingLeft: '20px' }}>
+              <ul style={{ display: 'flex', flexDirection: 'column', gap: '14px', fontSize: '0.92rem', color: '#742A2A', paddingLeft: '20px' }}>
                 <li>Direct 50% advance bank transfer puts all financial risk on the buyer.</li>
                 <li>Zero recourse if the factory delays delivery or uses inferior fabric GSM.</li>
                 <li>No formalized dispute panel or quality inspection guarantees.</li>
@@ -833,11 +795,11 @@ export default function Landing() {
               </ul>
             </div>
 
-            <div style={{ backgroundColor: '#F0FDF4', border: '1px solid #86EFAC', borderRadius: '20px', padding: '36px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#15803D', marginBottom: '20px', fontWeight: 800, fontSize: '1.25rem' }}>
-                <ShieldCheck size={24} /> SupplyX Nodal Escrow Protection (100% Safe)
+            <div className="escrow-card-box" style={{ backgroundColor: '#F0FDF4', border: '1px solid #86EFAC' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#15803D', marginBottom: '20px', fontWeight: 800, fontSize: '1.2rem' }}>
+                <ShieldCheck size={24} style={{ flexShrink: 0 }} /> SupplyX Nodal Escrow Protection (100% Safe)
               </div>
-              <ul style={{ display: 'flex', flexDirection: 'column', gap: '14px', fontSize: '0.95rem', color: '#166534', paddingLeft: '20px' }}>
+              <ul style={{ display: 'flex', flexDirection: 'column', gap: '14px', fontSize: '0.92rem', color: '#166534', paddingLeft: '20px' }}>
                 <li>Buyer funds locked in RBI-regulated nodal escrow bank account.</li>
                 <li>Payouts released strictly against photo/video milestones &amp; QC clearance.</li>
                 <li>100% Money-Back Guarantee for non-conforming or rejected garment batches.</li>
@@ -849,11 +811,11 @@ export default function Landing() {
       </section>
 
       {/* ── Brand & Factory Testimonials ── */}
-      <section style={{ padding: "80px 32px", backgroundColor: "#ffffff" }}>
+      <section className="landing-section-padding" style={{ backgroundColor: "#ffffff" }}>
         <div style={{ maxWidth: "1360px", margin: "0 auto" }}>
-          <div style={{ textAlign: "center", maxWidth: "700px", margin: "0 auto 48px" }}>
+          <div style={{ textAlign: "center", maxWidth: "700px", margin: "0 auto 40px" }}>
             <span style={{ fontSize: '0.875rem', fontWeight: 700, color: 'var(--orange-500)', letterSpacing: '0.05em', textTransform: 'uppercase' }}>CLIENT REVIEWS</span>
-            <h2 style={{ fontSize: "2.25rem", fontWeight: "800", color: "var(--slate-900)", marginTop: '6px' }}>
+            <h2 className="landing-section-title" style={{ color: "var(--slate-900)", marginTop: '6px' }}>
               Trusted by 500+ D2C Brands &amp; Mills
             </h2>
           </div>
@@ -882,7 +844,7 @@ export default function Landing() {
                 stars: 5
               }
             ].map((t, i) => (
-              <div key={i} className="card-hover-lift" style={{ backgroundColor: "#ffffff", border: "1px solid var(--slate-200)", borderRadius: "16px", padding: "32px", boxShadow: "var(--shadow-sm)", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+              <div key={i} className="card-hover-lift" style={{ backgroundColor: "#ffffff", border: "1px solid var(--slate-200)", borderRadius: "16px", padding: "24px", boxShadow: "var(--shadow-sm)", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
                 <div>
                   <div style={{ display: "flex", gap: "4px", marginBottom: "16px" }}>
                     {[...Array(t.stars)].map((_, s) => (
@@ -894,7 +856,7 @@ export default function Landing() {
                   </p>
                 </div>
 
-                <div style={{ borderTop: "1px solid var(--slate-100)", paddingTop: "16px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <div style={{ borderTop: "1px solid var(--slate-100)", paddingTop: "16px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: 'wrap', gap: '8px' }}>
                   <div>
                     <h4 style={{ fontSize: "0.95rem", fontWeight: 700, color: "var(--slate-900)" }}>{t.author}</h4>
                     <span style={{ fontSize: "0.8rem", color: "var(--slate-500)" }}>{t.role}</span>
@@ -908,15 +870,15 @@ export default function Landing() {
       </section>
 
       {/* ── Searchable Accordion FAQ Section ── */}
-      <section style={{ padding: "80px 32px", maxWidth: "960px", margin: "0 auto", width: "100%" }}>
-        <div style={{ textAlign: "center", marginBottom: "48px" }}>
+      <section className="landing-section-padding" style={{ maxWidth: "960px", margin: "0 auto", width: "100%" }}>
+        <div style={{ textAlign: "center", marginBottom: "40px" }}>
           <span style={{ fontSize: '0.875rem', fontWeight: 700, color: 'var(--orange-500)', letterSpacing: '0.05em', textTransform: 'uppercase' }}>FREQUENTLY ASKED QUESTIONS</span>
-          <h2 style={{ fontSize: "2.25rem", fontWeight: "800", color: "var(--slate-900)", marginTop: '6px' }}>
+          <h2 className="landing-section-title" style={{ color: "var(--slate-900)", marginTop: '6px' }}>
             Got Questions? We're Here to Help.
           </h2>
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
           {[
             {
               q: "How does SupplyX Exchange verify apparel manufacturers?",
@@ -951,7 +913,7 @@ export default function Landing() {
                   onClick={() => setOpenFaqIndex(isOpen ? -1 : idx)}
                   style={{
                     width: '100%',
-                    padding: '20px 24px',
+                    padding: '16px 20px',
                     display: 'flex',
                     justify: 'space-between',
                     alignItems: 'center',
@@ -959,16 +921,17 @@ export default function Landing() {
                     border: 'none',
                     textAlign: 'left',
                     cursor: 'pointer',
-                    fontSize: '1.05rem',
+                    fontSize: '1rem',
                     fontWeight: 700,
-                    color: 'var(--slate-900)'
+                    color: 'var(--slate-900)',
+                    gap: '12px'
                   }}
                 >
                   <span>{faq.q}</span>
-                  {isOpen ? <ChevronUp size={20} color="var(--orange-500)" /> : <ChevronDown size={20} color="var(--slate-400)" />}
+                  {isOpen ? <ChevronUp size={20} color="var(--orange-500)" style={{ flexShrink: 0 }} /> : <ChevronDown size={20} color="var(--slate-400)" style={{ flexShrink: 0 }} />}
                 </button>
                 {isOpen && (
-                  <div style={{ padding: '0 24px 20px 24px', fontSize: '0.95rem', color: 'var(--slate-600)', lineHeight: 1.6, borderTop: '1px dashed var(--slate-200)', paddingTop: '16px' }}>
+                  <div style={{ padding: '0 20px 18px 20px', fontSize: '0.92rem', color: 'var(--slate-600)', lineHeight: 1.6, borderTop: '1px dashed var(--slate-200)', paddingTop: '14px' }}>
                     {faq.a}
                   </div>
                 )}
@@ -985,15 +948,15 @@ export default function Landing() {
       </section>
 
       {/* ── High-Converting Bottom Conversion Banner ── */}
-      <section style={{ background: "linear-gradient(180deg, #101828 0%, #1D2939 100%)", color: "#ffffff", padding: "80px 32px", textAlign: "center" }}>
+      <section className="landing-section-padding" style={{ background: "linear-gradient(180deg, #101828 0%, #1D2939 100%)", color: "#ffffff", textAlign: "center" }}>
         <div style={{ maxWidth: "840px", margin: "0 auto" }}>
           <div className="badge" style={{ backgroundColor: "rgba(255,84,0,0.15)", color: "var(--orange-500)", border: "1px solid rgba(255,84,0,0.3)", marginBottom: "20px", padding: "6px 16px" }}>
             START SOURCING TODAY
           </div>
-          <h2 style={{ fontSize: "2.75rem", fontWeight: "800", marginBottom: "20px", lineHeight: 1.2 }}>
+          <h2 className="landing-banner-title" style={{ marginBottom: "20px", lineHeight: 1.2 }}>
             Ready to Connect with Audited Garment Manufacturers?
           </h2>
-          <p style={{ color: "var(--slate-300)", fontSize: "1.15rem", marginBottom: "36px", lineHeight: 1.6 }}>
+          <p style={{ color: "var(--slate-300)", fontSize: "1.1rem", marginBottom: "36px", lineHeight: 1.6 }}>
             Join over 500 fashion brands sourcing high-quality apparel across India with 100% Escrow Protection.
           </p>
 
@@ -1012,8 +975,8 @@ export default function Landing() {
 
       {/* ── Interactive Quick RFQ Modal ── */}
       {isRfqModalOpen && (
-        <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(16,24,40,0.75)', backdropFilter: 'blur(8px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, padding: '20px' }}>
-          <div style={{ backgroundColor: '#ffffff', borderRadius: '24px', maxWidth: '600px', width: '100%', padding: '32px', boxShadow: 'var(--shadow-lg)', position: 'relative', border: '1px solid var(--slate-200)' }}>
+        <div className="landing-modal-overlay">
+          <div className="landing-modal-card">
             <button
               onClick={() => setIsRfqModalOpen(false)}
               style={{ position: 'absolute', top: '20px', right: '20px', border: 'none', background: 'none', cursor: 'pointer', color: 'var(--slate-400)' }}
@@ -1023,7 +986,7 @@ export default function Landing() {
 
             <div style={{ marginBottom: '24px' }}>
               <span className="badge badge-orange" style={{ marginBottom: '8px' }}>QUICK RFQ SUBMISSION</span>
-              <h3 style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--slate-900)' }}>
+              <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: 'var(--slate-900)' }}>
                 {modalManufacturer ? `Request Quote from ${modalManufacturer.name}` : 'Post Your Apparel Sourcing RFQ'}
               </h3>
               <p style={{ fontSize: '0.875rem', color: 'var(--slate-600)', marginTop: '4px' }}>
@@ -1043,7 +1006,7 @@ export default function Landing() {
                 />
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+              <div className="landing-modal-grid-2">
                 <div>
                   <label style={{ display: 'block', fontSize: '0.84rem', fontWeight: 600, color: 'var(--slate-700)', marginBottom: '6px' }}>Order Quantity (Pcs) *</label>
                   <input
@@ -1078,7 +1041,7 @@ export default function Landing() {
                 <span>Protected by SupplyX Escrow Guarantee &amp; Non-Disclosure Agreement.</span>
               </div>
 
-              <div style={{ display: 'flex', gap: '12px', marginTop: '8px' }}>
+              <div className="landing-modal-actions">
                 <button type="button" className="btn btn-outline" style={{ flex: 1 }} onClick={() => setIsRfqModalOpen(false)}>
                   Cancel
                 </button>

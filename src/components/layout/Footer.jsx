@@ -8,7 +8,7 @@ export default function Footer() {
     <footer style={{ backgroundColor: 'var(--slate-900)', color: '#ffffff', paddingTop: '60px', paddingBottom: '32px', borderTop: '1px solid var(--slate-800)' }}>
       <div style={{ maxWidth: '1360px', margin: '0 auto', padding: '0 32px' }}>
         
-        <div className="responsive-grid-4col" style={{ marginBottom: '48px' }}>
+        <div className="responsive-grid-footer" style={{ marginBottom: '48px' }}>
           
           {/* Column 1: Brand Info */}
           <div>

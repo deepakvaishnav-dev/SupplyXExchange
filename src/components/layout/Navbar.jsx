@@ -64,11 +64,11 @@ export default function Navbar({ activePage = '' }) {
           <ChevronDown size={14} />
         </div>
 
-        <button className="btn btn-outline" onClick={() => { navigate('/login'); closeMenu(); }}>
+        <button className="btn btn-outline nav-desktop-btn" onClick={() => { navigate('/login'); closeMenu(); }}>
           Login
         </button>
 
-        <button className="btn btn-orange" onClick={() => { navigate('/buyer/dashboard'); closeMenu(); }}>
+        <button className="btn btn-orange nav-desktop-btn" onClick={() => { navigate('/buyer/dashboard'); closeMenu(); }}>
           Get Started
         </button>
 
