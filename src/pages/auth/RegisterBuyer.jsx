@@ -12,7 +12,7 @@ export default function RegisterBuyer() {
   const benefits = [
     'Access 500+ verified apparel manufacturers', 'Submit unlimited RFQs with ease',
     'Compare quotes side-by-side', 'Real-time 10-stage production tracking',
-    'Secure 100% escrow protected payments', 'Dedicated sourcing & QC support',
+    'Secure 100% payment protected orders', 'Dedicated sourcing & QC support',
   ];
 
   return (

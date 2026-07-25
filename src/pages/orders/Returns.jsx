@@ -70,7 +70,7 @@ export default function Returns() {
             <div style={{ fontSize: '0.8125rem', fontWeight: 600, color: 'var(--slate-500)' }}>Resolved Returns</div>
             <div style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--green-600)', marginTop: 4 }}>4</div>
             <div style={{ fontSize: '0.75rem', color: 'var(--green-600)', marginTop: 4, display: 'flex', alignItems: 'center', gap: 4 }}>
-              <CheckCircle size={14} /> 100% Escrow Refunded
+              <CheckCircle size={14} /> 100% Amount Refunded
             </div>
           </div>
           <div className="card" style={{ padding: 20 }}>

@@ -68,13 +68,13 @@ export default function AboutUs() {
               Historically, fashion brands faced enormous challenges sourcing garments in India: fragmented supplier bases, inconsistent quality control, delayed deliveries, and financial risk.
             </p>
             <p style={{ fontSize: '1.05rem', color: 'var(--slate-600)', lineHeight: 1.7, marginBottom: '24px' }}>
-              SupplyX Exchange solves this by building a tech-enabled ecosystem with verified factory audits, digital milestone payments (escrow protection), transparent RFQ matching, and real-time production tracking.
+              SupplyX Exchange solves this by building a tech-enabled ecosystem with verified factory audits, digital milestone payments (secure payment protection), transparent RFQ matching, and real-time production tracking.
             </p>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               {[
                 'Strict 35-Point On-Site Factory Audits',
-                '100% Escrow Protection for All Advance Payments',
+                '100% Secure Payment Protection for All Orders',
                 'Dedicated Quality Inspection Officers at Pre-shipment',
                 'Direct Access to Regional Garment Hubs (Tirupur, Ludhiana, Surat, Jaipur)'
               ].map((item, idx) => (
