@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
+import logoImg from '../../assets/logo.png';
 import {
   LayoutDashboard, Search, FileText, Scale, ShoppingBag, CreditCard,
   Truck, RotateCcw, User, Building, Heart, Wallet, Settings, Headphones,
@@ -59,14 +60,14 @@ export default function Sidebar({ isMobileOpen = false, onCloseMobile }) {
       {/* Brand Logo & Collapse Toggle Button */}
       <div className="sidebar-logo">
         <div
-          className="brand-logo-text"
+          className="brand-logo-wrapper"
           onClick={() => { navigate('/'); handleNavClick(); }}
           style={{ cursor: 'pointer' }}
         >
           {isCollapsed ? (
-            <span>S<span className="brand-x">X</span>E</span>
+            <span className="brand-logo-text" style={{ fontSize: '1.1rem' }}>S<span className="brand-x">X</span>E</span>
           ) : (
-            <>Supply<span className="brand-x">X</span>Exchange</>
+            <img src={logoImg} alt="SupplyXExchange Logo" className="brand-logo-img" style={{ height: '30px' }} />
           )}
         </div>
 

@@ -1,14 +1,37 @@
-import { useState } from 'react';
-import { ChevronDown, Globe, Menu, Search, X } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { ChevronDown, Menu, Search, X } from 'lucide-react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import logoImg from '../../assets/logo.png';
 
 export default function Navbar({ activePage = '' }) {
   const navigate = useNavigate();
+  const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [navSearchQuery, setNavSearchQuery] = useState('');
 
   const toggleMobileMenu = () => setIsMobileMenuOpen(prev => !prev);
   const closeMenu = () => setIsMobileMenuOpen(false);
+
+  // Prevent background body scrolling when mobile drawer is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen]);
+
+  // Close menu on Escape key press
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') closeMenu();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   const handleNavSearch = (e) => {
     e.preventDefault();
@@ -22,7 +45,7 @@ export default function Navbar({ activePage = '' }) {
   const handleNavAnchor = (e, targetId) => {
     e.preventDefault();
     closeMenu();
-    if (window.location.pathname === '/') {
+    if (location.pathname === '/') {
       const el = document.getElementById(targetId);
       if (el) {
         el.scrollIntoView({ behavior: 'smooth' });
@@ -37,124 +60,172 @@ export default function Navbar({ activePage = '' }) {
   };
 
   return (
-    <header className="public-navbar" style={{ position: 'sticky', top: 0, zIndex: 100, backgroundColor: '#ffffff', borderBottom: '1px solid #EAECF0', padding: '0 32px', height: '72px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-      {/* Brand Logo matching screenshot */}
+    <header className="public-navbar">
+      {/* Brand Logo Image */}
       <div
-        className="brand-logo-text"
+        className="brand-logo-wrapper"
         onClick={() => { navigate('/'); closeMenu(); }}
-        style={{ cursor: 'pointer', fontSize: '1.45rem', fontWeight: 800, color: '#101828', display: 'flex', alignItems: 'center', tracking: '-0.02em' }}
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => { if (e.key === 'Enter') { navigate('/'); closeMenu(); } }}
       >
-        Supply<span style={{ color: '#FF5400' }}>X</span>Exchange
+        <img src={logoImg} alt="SupplyXExchange Logo" className="brand-logo-img" />
       </div>
 
       {/* Desktop Nav Links */}
-      <nav className="public-nav-links" style={{ display: 'flex', alignItems: 'center', gap: '28px' }}>
-        <a href="#how-it-works" onClick={(e) => handleNavAnchor(e, 'how-it-works')} className={`public-nav-link ${activePage === 'how' ? 'active' : ''}`}>
+      <nav className="public-nav-links" aria-label="Main Navigation">
+        <a
+          href="#how-it-works"
+          onClick={(e) => handleNavAnchor(e, 'how-it-works')}
+          className={`public-nav-link ${activePage === 'how' ? 'active' : ''}`}
+        >
           How It Works
         </a>
-        <a href="#for-buyers" onClick={(e) => { e.preventDefault(); navigate('/search'); closeMenu(); }} className={`public-nav-link ${activePage === 'buyers' ? 'active' : ''}`}>
+        <a
+          href="#for-buyers"
+          onClick={(e) => { e.preventDefault(); navigate('/search'); closeMenu(); }}
+          className={`public-nav-link ${activePage === 'buyers' ? 'active' : ''}`}
+        >
           For Buyers
         </a>
-        <a href="#for-manufacturers" onClick={(e) => { e.preventDefault(); navigate('/register/manufacturer'); closeMenu(); }} className={`public-nav-link ${activePage === 'manufacturers' ? 'active' : ''}`}>
+        <a
+          href="#for-manufacturers"
+          onClick={(e) => { e.preventDefault(); navigate('/register/manufacturer'); closeMenu(); }}
+          className={`public-nav-link ${activePage === 'manufacturers' ? 'active' : ''}`}
+        >
           For Manufacturers
         </a>
-        <a href="#resources" onClick={(e) => { e.preventDefault(); navigate('/products'); closeMenu(); }} className={`public-nav-link ${activePage === 'resources' ? 'active' : ''}`} style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+        <a
+          href="#resources"
+          onClick={(e) => { e.preventDefault(); navigate('/products'); closeMenu(); }}
+          className={`public-nav-link ${activePage === 'resources' ? 'active' : ''}`}
+        >
           Resources <ChevronDown size={14} />
         </a>
-        <a href="#about" onClick={(e) => handleNavAnchor(e, 'about')} className={`public-nav-link ${activePage === 'about' ? 'active' : ''}`}>
+        <a
+          href="#about"
+          onClick={(e) => handleNavAnchor(e, 'about')}
+          className={`public-nav-link ${activePage === 'about' ? 'active' : ''}`}
+        >
           About Us
         </a>
       </nav>
 
-      {/* Navbar Search Bar & Right Actions */}
-      <div className="topbar-right-actions" style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-        {/* Sleek Search Bar inside Navbar */}
-        <form onSubmit={handleNavSearch} className="nav-search-form" style={{ display: 'flex', alignItems: 'center', backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '24px', padding: '6px 14px', gap: '8px', width: '220px', transition: 'all 0.2s' }}>
+      {/* Navbar Right Actions (Search & Buttons) */}
+      <div className="topbar-right-actions">
+        {/* Search Bar inside Navbar */}
+        <form onSubmit={handleNavSearch} className="nav-search-form">
           <Search size={15} color="#64748B" style={{ flexShrink: 0 }} />
           <input
             type="text"
             placeholder="Search factories, products..."
             value={navSearchQuery}
             onChange={(e) => setNavSearchQuery(e.target.value)}
-            style={{ border: 'none', outline: 'none', background: 'transparent', fontSize: '0.825rem', color: '#0F172A', width: '100%' }}
+            aria-label="Search factories and products"
           />
         </form>
 
-        <button className="btn btn-ghost nav-desktop-btn" onClick={() => { navigate('/login'); closeMenu(); }} style={{ color: '#101828', fontWeight: 600, border: 'none', background: 'none', fontSize: '0.9rem', cursor: 'pointer' }}>
+        <button
+          className="btn btn-ghost nav-desktop-btn"
+          onClick={() => { navigate('/login'); closeMenu(); }}
+        >
           Login
         </button>
 
-        <button className="btn btn-orange nav-desktop-btn" onClick={() => { navigate('/buyer/dashboard'); closeMenu(); }} style={{ backgroundColor: '#FF5400', color: '#ffffff', border: 'none', borderRadius: '8px', padding: '10px 20px', fontWeight: 700, fontSize: '0.9rem', cursor: 'pointer' }}>
+        <button
+          className="btn btn-orange nav-desktop-btn"
+          onClick={() => { navigate('/buyer/dashboard'); closeMenu(); }}
+        >
           Get Started
         </button>
 
         {/* Mobile Hamburger Button */}
         <button
-          className="btn-icon-only mobile-menu-trigger"
+          className="mobile-menu-trigger"
           onClick={toggleMobileMenu}
-          aria-label="Toggle navigation"
+          aria-label={isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-expanded={isMobileMenuOpen}
         >
-          {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+          {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
       </div>
 
-      {/* Mobile Slide-down Drawer Menu */}
+      {/* Mobile Slide-down Drawer Menu & Backdrop */}
       {isMobileMenuOpen && (
-        <div style={{
-          position: 'absolute',
-          top: '100%',
-          left: 0,
-          right: 0,
-          backgroundColor: '#ffffff',
-          borderBottom: '1px solid var(--slate-200)',
-          boxShadow: 'var(--shadow-lg)',
-          padding: '20px 24px',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '16px',
-          zIndex: 200
-        }}>
-          {/* Mobile Search Input */}
-          <form onSubmit={handleNavSearch} style={{ display: 'flex', alignItems: 'center', backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '10px 14px', gap: '8px' }}>
-            <Search size={16} color="#64748B" />
-            <input
-              type="text"
-              placeholder="Search apparel, mills..."
-              value={navSearchQuery}
-              onChange={(e) => setNavSearchQuery(e.target.value)}
-              style={{ border: 'none', outline: 'none', background: 'transparent', fontSize: '0.9rem', color: '#0F172A', width: '100%' }}
-            />
-            <button type="submit" style={{ backgroundColor: '#FF5400', color: '#fff', border: 'none', borderRadius: '6px', padding: '6px 12px', fontSize: '0.8rem', fontWeight: 600 }}>
-              Search
-            </button>
-          </form>
+        <>
+          <div className="mobile-drawer-backdrop" onClick={closeMenu} />
+          <div className="mobile-nav-drawer" role="dialog" aria-modal="true" aria-label="Mobile Navigation Menu">
+            {/* Mobile Search Input */}
+            <form onSubmit={handleNavSearch} className="mobile-search-form">
+              <Search size={16} color="#64748B" style={{ flexShrink: 0 }} />
+              <input
+                type="text"
+                placeholder="Search factories, products..."
+                value={navSearchQuery}
+                onChange={(e) => setNavSearchQuery(e.target.value)}
+                aria-label="Search factories and products on mobile"
+              />
+              <button type="submit" className="mobile-search-btn">
+                Search
+              </button>
+            </form>
 
-          <a href="#how-it-works" onClick={(e) => handleNavAnchor(e, 'how-it-works')} style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--slate-900)' }}>
-            How It Works
-          </a>
-          <a href="#for-buyers" onClick={(e) => { e.preventDefault(); navigate('/search'); closeMenu(); }} style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--slate-900)' }}>
-            For Buyers
-          </a>
-          <a href="#for-manufacturers" onClick={(e) => { e.preventDefault(); navigate('/register/manufacturer'); closeMenu(); }} style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--slate-900)' }}>
-            For Manufacturers
-          </a>
-          <a href="#products" onClick={(e) => { e.preventDefault(); navigate('/products'); closeMenu(); }} style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--slate-900)' }}>
-            Resources / Categories
-          </a>
-          <a href="#about" onClick={(e) => handleNavAnchor(e, 'about')} style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--slate-900)' }}>
-            About Us
-          </a>
+            <nav className="mobile-nav-menu-list">
+              <a
+                href="#how-it-works"
+                onClick={(e) => handleNavAnchor(e, 'how-it-works')}
+                className={`mobile-nav-item ${activePage === 'how' ? 'active' : ''}`}
+              >
+                <span>How It Works</span>
+              </a>
+              <a
+                href="#for-buyers"
+                onClick={(e) => { e.preventDefault(); navigate('/search'); closeMenu(); }}
+                className={`mobile-nav-item ${activePage === 'buyers' ? 'active' : ''}`}
+              >
+                <span>For Buyers</span>
+              </a>
+              <a
+                href="#for-manufacturers"
+                onClick={(e) => { e.preventDefault(); navigate('/register/manufacturer'); closeMenu(); }}
+                className={`mobile-nav-item ${activePage === 'manufacturers' ? 'active' : ''}`}
+              >
+                <span>For Manufacturers</span>
+              </a>
+              <a
+                href="#products"
+                onClick={(e) => { e.preventDefault(); navigate('/products'); closeMenu(); }}
+                className={`mobile-nav-item ${activePage === 'resources' ? 'active' : ''}`}
+              >
+                <span>Resources & Categories</span>
+              </a>
+              <a
+                href="#about"
+                onClick={(e) => handleNavAnchor(e, 'about')}
+                className={`mobile-nav-item ${activePage === 'about' ? 'active' : ''}`}
+              >
+                <span>About Us</span>
+              </a>
+            </nav>
 
-          <div style={{ borderTop: '1px solid var(--slate-100)', paddingTop: '16px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-            <button className="btn btn-outline" style={{ width: '100%' }} onClick={() => { navigate('/login'); closeMenu(); }}>
-              Login
-            </button>
-            <button className="btn btn-orange" style={{ width: '100%', backgroundColor: '#FF5400' }} onClick={() => { navigate('/buyer/dashboard'); closeMenu(); }}>
-              Get Started
-            </button>
+            <div className="mobile-drawer-actions">
+              <button
+                className="btn btn-outline mobile-drawer-btn"
+                onClick={() => { navigate('/login'); closeMenu(); }}
+              >
+                Login
+              </button>
+              <button
+                className="btn btn-orange mobile-drawer-btn"
+                onClick={() => { navigate('/buyer/dashboard'); closeMenu(); }}
+              >
+                Get Started
+              </button>
+            </div>
           </div>
-        </div>
+        </>
       )}
     </header>
   );
 }
+

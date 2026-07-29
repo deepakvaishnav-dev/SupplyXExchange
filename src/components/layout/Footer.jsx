@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { ArrowRight, Mail, Phone, MapPin, ShieldCheck } from "lucide-react";
+import logoImg from "../../assets/logo.png";
 
 export default function Footer() {
   const navigate = useNavigate();
@@ -22,16 +23,14 @@ export default function Footer() {
           {/* Column 1: Brand Info */}
           <div>
             <div
-              className="brand-logo-text"
+              className="brand-logo-wrapper"
               onClick={() => navigate("/")}
               style={{
                 cursor: "pointer",
-                fontSize: "1.5rem",
-                color: "#101828",
                 marginBottom: "16px",
               }}
             >
-              Supply<span className="brand-x">X</span>Exchange
+              <img src={logoImg} alt="SupplyXExchange Logo" className="brand-logo-img" style={{ height: "38px" }} />
             </div>
             <p
               style={{
