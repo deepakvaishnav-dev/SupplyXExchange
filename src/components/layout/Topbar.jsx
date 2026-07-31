@@ -6,12 +6,14 @@ export default function Topbar({ role = 'buyer', onToggleMobile, isMobileOpen })
   const navigate = useNavigate();
   const location = useLocation();
   const [searchQuery, setSearchQuery] = useState('');
+  const [showMobileSearch, setShowMobileSearch] = useState(false);
 
   const isPublicPage = ['/', '/login', '/register/buyer', '/register/manufacturer'].includes(location.pathname);
 
   const handleSearch = (e) => {
     if (e.key === 'Enter' && searchQuery.trim()) {
       navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
+      setShowMobileSearch(false);
     }
   };
 
@@ -33,27 +35,28 @@ export default function Topbar({ role = 'buyer', onToggleMobile, isMobileOpen })
 
   return (
     <header className="topbar-header">
-      {onToggleMobile && (
-        <button
-          className="btn-icon-only topbar-mobile-toggle"
-          onClick={onToggleMobile}
-          style={{ marginRight: 12 }}
-          aria-label="Toggle navigation menu"
-        >
-          {isMobileOpen ? <X size={20} /> : <Menu size={20} />}
-        </button>
-      )}
+      <div className="topbar-left-section">
+        {onToggleMobile && (
+          <button
+            className="topbar-mobile-toggle"
+            onClick={onToggleMobile}
+            aria-label="Toggle navigation menu"
+          >
+            {isMobileOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        )}
 
-      {/* Left: Search Bar */}
-      <div className="topbar-search-input">
-        <Search size={16} color="var(--slate-400)" />
-        <input
-          type="text"
-          placeholder="Search for products, manufacturers..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          onKeyDown={handleSearch}
-        />
+        {/* Desktop Search Bar */}
+        <div className="topbar-search-input">
+          <Search size={16} color="var(--slate-400)" />
+          <input
+            type="text"
+            placeholder="Search products, manufacturers..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={handleSearch}
+          />
+        </div>
       </div>
 
       {/* Middle: Public links (only on public pages) */}
@@ -69,35 +72,67 @@ export default function Topbar({ role = 'buyer', onToggleMobile, isMobileOpen })
 
       {/* Right: Actions & User Info */}
       <div className="topbar-right-actions">
-        <div style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: '0.84rem', fontWeight: 600, color: 'var(--slate-700)', cursor: 'pointer' }}>
+        {/* Search icon button for small screens */}
+        <button
+          className="topbar-icon-button topbar-search-toggle-btn"
+          onClick={() => setShowMobileSearch(prev => !prev)}
+          title="Search"
+          aria-label="Search"
+        >
+          <Search size={18} />
+        </button>
+
+        <div className="topbar-lang-selector" style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: '0.84rem', fontWeight: 600, color: 'var(--slate-700)', cursor: 'pointer' }}>
           <Globe size={16} />
           <span>EN</span>
           <ChevronDown size={14} />
         </div>
 
-        <button className="topbar-icon-button" onClick={() => navigate('/notifications')} title="Notifications">
+        <button className="topbar-icon-button" onClick={() => navigate('/notifications')} title="Notifications" aria-label="Notifications">
           <Bell size={18} />
           <span className="topbar-badge-dot">3</span>
         </button>
 
-        <button className="topbar-icon-button" onClick={() => navigate('/messages')} title="Messages">
+        <button className="topbar-icon-button" onClick={() => navigate('/messages')} title="Messages" aria-label="Messages">
           <Mail size={18} />
           <span className="topbar-badge-dot" style={{ backgroundColor: 'var(--blue-600)' }}>2</span>
         </button>
 
-        <div className="user-profile-badge" onClick={() => navigate('/profile')}>
+        <div className="user-profile-badge" onClick={() => navigate('/profile')} title="My Profile">
           <div className="avatar-circle">SK</div>
-          <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.2 }}>
-            <span style={{ fontSize: '0.84rem', fontWeight: 700, color: 'var(--slate-900)' }}>Shrishail Kalagi</span>
-            <span style={{ fontSize: '0.72rem', color: 'var(--slate-500)' }}>Buyer</span>
+          <div className="user-profile-info">
+            <span className="user-name" style={{ fontSize: '0.84rem', fontWeight: 700, color: 'var(--slate-900)' }}>Shrishail Kalagi</span>
+            <span className="user-role" style={{ fontSize: '0.72rem', color: 'var(--slate-500)' }}>Buyer</span>
           </div>
-          <ChevronDown size={14} color="var(--slate-500)" />
+          <ChevronDown size={14} color="var(--slate-500)" className="user-chevron" />
         </div>
 
-        <button className="btn btn-orange btn-sm" onClick={() => navigate('/rfq/create')}>
-          Post an Inquiry
+        <button className="btn btn-orange btn-sm topbar-post-btn" onClick={() => navigate('/rfq/create')}>
+          <span className="desktop-btn-label">Post an Inquiry</span>
+          <span className="mobile-btn-label">+ Inquiry</span>
         </button>
       </div>
+
+      {/* Expandable Mobile Search Bar */}
+      {showMobileSearch && (
+        <div className="topbar-mobile-search-bar">
+          <Search size={16} color="var(--slate-400)" />
+          <input
+            type="text"
+            placeholder="Search products, manufacturers..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={(e) => {
+              handleSearch(e);
+              if (e.key === 'Enter') setShowMobileSearch(false);
+            }}
+            autoFocus
+          />
+          <button onClick={() => setShowMobileSearch(false)} className="mobile-search-close" aria-label="Close search">
+            <X size={16} />
+          </button>
+        </div>
+      )}
     </header>
   );
 }

@@ -4,7 +4,7 @@ import logoImg from '../../assets/logo.png';
 import {
   LayoutDashboard, Search, FileText, Scale, ShoppingBag, CreditCard,
   Truck, RotateCcw, User, Building, Heart, Wallet, Settings, Headphones,
-  ChevronLeft, ChevronRight
+  ChevronLeft, ChevronRight, X
 } from 'lucide-react';
 
 const sidebarConfig = [
@@ -57,7 +57,7 @@ export default function Sidebar({ isMobileOpen = false, onCloseMobile }) {
 
   return (
     <aside className={`sidebar ${isCollapsed ? 'collapsed' : ''} ${isMobileOpen ? 'open' : ''}`}>
-      {/* Brand Logo & Collapse Toggle Button */}
+      {/* Brand Logo & Collapse / Close Toggle Buttons */}
       <div className="sidebar-logo">
         <div
           className="brand-logo-wrapper"
@@ -72,9 +72,21 @@ export default function Sidebar({ isMobileOpen = false, onCloseMobile }) {
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-          {/* Arrow Collapse Toggle Button */}
+          {/* Mobile Close Button */}
+          {onCloseMobile && (
+            <button
+              className="sidebar-close-mobile-btn"
+              onClick={onCloseMobile}
+              title="Close menu"
+              aria-label="Close menu"
+            >
+              <X size={18} />
+            </button>
+          )}
+
+          {/* Arrow Collapse Toggle Button (desktop) */}
           <button
-            className="sidebar-toggle-btn"
+            className="sidebar-toggle-btn desktop-collapse-btn"
             onClick={toggleCollapsed}
             title={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
             aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
